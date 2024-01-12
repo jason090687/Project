@@ -1,87 +1,99 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(Location());
+  runApp(Homelocation());
 }
 
-class Location extends StatelessWidget {
+class Homelocation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'CDOseek',
-      home: HomeLocation(),
+      home: MyHomePage(),
     );
   }
 }
 
-class HomeLocation extends StatefulWidget {
-  const HomeLocation({Key? key}) : super(key: key);
-
+class MyHomePage extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _HomePageState extends State<HomeLocation> {
+class _MyHomePageState extends State<MyHomePage> {
   int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('CDOseek'),
-      ),
-      body: Column(
-        children: [
-          // Top section with text and image
-          _buildTopSection(),
-
-          // Search bar and location section
-          _buildSearchBar(),
-
-          // Check-in and guest section
-          _buildDateAndGuestSections(),
-
-          // Footer
-          _buildBottomNavigationBar(),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildTopSection() {
-    return Stack(
-      children: [
-        Container(
-          height: 200,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              fit: BoxFit.cover,
-              image: AssetImage(
-                  'assets/travel_image.jpg'), // Replace with your actual image path
+        title: RichText(
+          text: TextSpan(
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
             ),
-          ),
-        ),
-        Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                'Step Into your Upcoming exploration!',
+              TextSpan(
+                text: 'CDO',
                 style: TextStyle(
                   color: Colors.blue,
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 10.0),
-              Text(
-                'Explore an Ideal stay with CDOseek',
-                style: TextStyle(color: Colors.blue),
+              TextSpan(
+                text: 'seek',
+                style: TextStyle(
+                  color: Color(0xFFfdcd25),
+                ),
               ),
             ],
           ),
         ),
-      ],
+        backgroundColor: Color(0xFFB0BEC5),
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          _buildTopSection(),
+          const SizedBox(height: 20.0),
+          _buildSearchBar(),
+          const SizedBox(height: 20.0),
+          _buildDateSection(),
+          const SizedBox(height: 20.0),
+          _buildGuestsAndRoomsSection(),
+        ],
+      ),
+      bottomNavigationBar: _buildBottomNavigationBar(),
+    );
+  }
+
+  Widget _buildTopSection() {
+    return Container(
+      height: 200,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          fit: BoxFit.cover,
+          image: AssetImage('assets/travel_image.jpg'),
+        ),
+      ),
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Step Into your Upcoming exploration!',
+              style: TextStyle(
+                color: Colors.blue,
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 10.0),
+            Text(
+              'Explore an Ideal stay with CDOseek',
+              style: TextStyle(color: Colors.yellow),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -90,24 +102,34 @@ class _HomePageState extends State<HomeLocation> {
       padding: const EdgeInsets.all(20.0),
       child: Row(
         children: [
+          Icon(
+            Icons.location_on,
+            color: Colors.blue,
+          ),
+          const SizedBox(width: 10.0),
           Expanded(
             child: TextField(
               decoration: InputDecoration(
                 hintText: 'Where?',
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
+                  borderRadius: BorderRadius.circular(15.0), // Round border
                 ),
               ),
             ),
           ),
           const SizedBox(width: 10.0),
           ElevatedButton(
-            onPressed: () {}, // Add functionality later
-            child: Text('FIND'),
+            onPressed: () {},
+            child: Text(
+              'FIND',
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
             style: ElevatedButton.styleFrom(
-              primary: Colors.blue, // Blue background color
+              primary: Colors.blue,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
+                borderRadius: BorderRadius.circular(15.0), // Round border
               ),
             ),
           ),
@@ -116,43 +138,57 @@ class _HomePageState extends State<HomeLocation> {
     );
   }
 
-  Widget _buildDateAndGuestSections() {
-    return Column(
-      children: [
-        // Check-in section
-        _buildInfoRow('Check-in', 'DD/MM/YY', Icons.calendar_today),
-
-        // Guests section
-        _buildInfoRow('Guests', '1 1', Icons.add_circle),
-      ],
+  Widget _buildDateSection() {
+    return Container(
+      padding: const EdgeInsets.all(10.0),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey, width: 0.5),
+        borderRadius: BorderRadius.circular(35.0),
+      ),
+      child: _buildInfoColumn('Check-in', 'DD/MM/YY', Icons.calendar_today),
     );
   }
 
-  Widget _buildInfoRow(String label, String value, IconData icon) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  Widget _buildGuestsAndRoomsSection() {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey, width: 0.5),
+        borderRadius: BorderRadius.circular(35.0), // Round border
+      ),
+      padding: const EdgeInsets.all(10.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          _buildInfoColumn('Guests', '1', Icons.add_circle),
+          _buildInfoColumn('Rooms', '1', Icons.hotel),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildInfoColumn(String label, String value, IconData icon) {
+    return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 20.0),
-          child: Text(
-            label,
-            style: TextStyle(color: Colors.grey),
+        Text(
+          label,
+          style: TextStyle(
+            color: Colors.grey,
+            fontSize: 18.0,
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(right: 20.0),
-          child: Row(
-            children: [
-              Text(value),
-              const SizedBox(width: 10.0),
-              Icon(
-                icon,
-                color: _currentIndex == 4
-                    ? Colors.blue
-                    : Colors.grey, // Change color based on active index
-              ),
-            ],
-          ),
+        const SizedBox(height: 5.0),
+        Row(
+          children: [
+            Text(
+              value,
+              style: TextStyle(fontSize: 16.0), // Smaller font size
+            ),
+            const SizedBox(width: 10.0),
+            Icon(
+              icon,
+              color: Colors.grey,
+            ),
+          ],
         ),
       ],
     );
@@ -161,7 +197,9 @@ class _HomePageState extends State<HomeLocation> {
   Widget _buildBottomNavigationBar() {
     return BottomNavigationBar(
       currentIndex: _currentIndex,
-      onTap: (index) {
+      selectedItemColor: Colors.blue,
+      unselectedItemColor: Colors.grey,
+      onTap: (int index) {
         setState(() {
           _currentIndex = index;
         });
@@ -179,12 +217,7 @@ class _HomePageState extends State<HomeLocation> {
   BottomNavigationBarItem _buildNavItem(
       IconData icon, String label, int index) {
     return BottomNavigationBarItem(
-      icon: Icon(
-        icon,
-        color: _currentIndex == index
-            ? Colors.blue
-            : Colors.grey, // Change color based on active index
-      ),
+      icon: Icon(icon),
       label: label,
     );
   }

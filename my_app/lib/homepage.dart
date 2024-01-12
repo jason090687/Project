@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/HotelRecommendationApp.dart';
 import 'package:my_app/location.dart';
 
 class TeambanganBoardingHouseFinderextends extends StatelessWidget {
@@ -19,21 +20,18 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Your App Title'),
+        title: Text('CDOseek'),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           // Image at the top
-          Image.network(
-            'https://your-image-url.com',
-            height: 200, // adjust height as needed
-          ),
+          Image.asset('lib/assets/images/Ellipse4.png'),
           // Title in the middle
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Text(
-              'Your App Title',
+              'CDOseek',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -44,8 +42,12 @@ class HomePage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Text(
-              'Your app description goes here. Add more details about your app.',
+              'Welcome to Teambangan Boarding House Finder – your shortcut to the perfect home away from home, where comfort and community converge with just a tap',
               textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           // Buttons at the bottom
@@ -56,14 +58,20 @@ class HomePage extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => HomeLocation()),
+                    MaterialPageRoute(builder: (context) => MyHomePage()),
                   );
                 },
                 child: Text('Start Exploring'),
               ),
               SizedBox(width: 16),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => HotelRecommendationApp()),
+                  );
+                },
                 child: Text('Landlord Interface'),
               ),
             ],

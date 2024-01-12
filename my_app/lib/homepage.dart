@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/location.dart';
 
 class TeambanganBoardingHouseFinderextends extends StatelessWidget {
   @override
@@ -53,15 +54,16 @@ class HomePage extends StatelessWidget {
             children: [
               ElevatedButton(
                 onPressed: () {
-                  // Handle start exploring button press
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => HomeLocation()),
+                  );
                 },
                 child: Text('Start Exploring'),
               ),
               SizedBox(width: 16),
               ElevatedButton(
-                onPressed: () {
-                  // Handle landlord interface button press
-                },
+                onPressed: () {},
                 child: Text('Landlord Interface'),
               ),
             ],

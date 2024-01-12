@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/homepage.dart';
+import 'package:my_app/HotelRecommendationApp.dart';
 
 void main() {
   runApp(MyApp());
@@ -56,7 +56,8 @@ class FirstPage extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => HomePage()),
+                  MaterialPageRoute(
+                      builder: (context) => HotelRecommendationApp()),
                 );
               },
               // Replace with navigation code later

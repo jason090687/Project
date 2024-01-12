@@ -1,129 +1,123 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/location.dart';
 
 void main() {
-  runApp(HotelRecommendationApp());
+  runApp(const HotelRecommendationApp());
 }
 
 class HotelRecommendationApp extends StatelessWidget {
+  const HotelRecommendationApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Hotel Recommendation',
-      home: HomeScreen(),
-    );
-  }
-}
+      home: Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(height: 80), // Space above
 
-class HomeScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                Icon(Icons.location_on),
-                SizedBox(width: 8.0),
-                Text('Cagayan de Oro, Lapasan'),
-              ],
-            ),
-            Row(
-              children: [
-                Icon(Icons.notifications),
-                SizedBox(width: 16.0),
-              ],
-            ),
-          ],
-        ),
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Cagayan de Oro, Lapasan',
-              style: TextStyle(
-                fontSize: 24.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 16.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Icon(Icons.calendar_today),
-                    SizedBox(width: 8.0),
-                    Text('DD/MM/YY'),
-                  ],
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    // Handle guests button press
-                  },
-                  child: Text('1 Guests'),
-                ),
-              ],
-            ),
-            SizedBox(height: 16.0),
-            Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-              child: Row(
+              // "CDOseek"
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8.0),
-                      child: TextField(
-                        textAlign: TextAlign.center,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Search...',
-                        ),
-                      ),
-                    ),
+                  Text(
+                    'CDO',
+                    style: TextStyle(
+                        fontSize: 32.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue),
                   ),
-                  IconButton(
-                    onPressed: () {
-                      // Handle filtering icon press
-                    },
-                    icon: Icon(Icons.filter_list),
+                  Text(
+                    'seek',
+                    style: TextStyle(fontSize: 32.0, color: Colors.yellow),
                   ),
                 ],
               ),
-            ),
-            SizedBox(height: 16.0),
-            Text(
-              'Recommended Hotels',
-              style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold,
+              const SizedBox(height: 32),
+
+              // Description
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  'Welcome to Teambangan\'s Boarding House Finder – your shortcut to the perfect home away from home, where comfort and community converge with just a tap!',
+                  style: const TextStyle(fontSize: 18.0),
+                  textAlign: TextAlign.center,
+                ),
               ),
+              const SizedBox(height: 48),
+
+              // Column for buttons
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Blue button with arrow
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Homelocation()),
+                      );
+                    }, // Replace with desired action
+                    icon: const Icon(Icons.arrow_forward_ios),
+                    label: const Text('Start Exploring'),
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.blue,
+                      onPrimary: Colors.white, // White text
+                      textStyle: const TextStyle(fontWeight: FontWeight.bold),
+                      minimumSize: const Size(250, 75),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 24), // Increased padding
+                      shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.circular(20), // Rounded corners
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16.0),
+
+                  // Yellow button with arrow
+                  ElevatedButton.icon(
+                    onPressed: () {},
+                    icon: const Icon(Icons.arrow_forward_ios),
+                    label: const Text('Landlord Interface'),
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.blue, // Yellow background
+                      onPrimary: Colors.white, // Blue text
+                      textStyle: const TextStyle(fontWeight: FontWeight.bold),
+                      minimumSize: const Size(250, 75),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 24), // Increased padding
+                      shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.circular(20), // Rounded corners
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        bottomNavigationBar: BottomAppBar(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Already have an account? ',
+                ),
+                Text(
+                  'Login',
+                  style: TextStyle(color: Colors.yellow),
+                ),
+              ],
             ),
-            // Add a list of recommended hotels here
-            // You can create a separate HotelCard widget for each recommendation
-          ],
+          ),
         ),
       ),
-    );
-  }
-}
-
-class HotelCard extends StatelessWidget {
-  // HotelCard widget to display individual hotel recommendations
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      // Customize the appearance of each hotel card
-      child: ListTile(
-          // Display hotel information (e.g., name, price, etc.)
-          ),
     );
   }
 }
